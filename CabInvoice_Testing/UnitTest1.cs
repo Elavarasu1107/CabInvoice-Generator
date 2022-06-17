@@ -18,7 +18,7 @@ namespace CabInvoice_Testing
             double expected = 325;
             InvoiceGenerator getMethod = new InvoiceGenerator();
             Ride[] ride = { new Ride(10, 10), new Ride(10, 5), new Ride(10, 10) };
-            EnhancedInvoice result = getMethod.MultipleRides(ride);
+            var result = getMethod.MultipleRides(ride);
             Assert.AreEqual(expected, result.totalFare);
         }
         [Test]
@@ -26,9 +26,21 @@ namespace CabInvoice_Testing
         {
             InvoiceGenerator getMethod = new InvoiceGenerator();
             Ride[] ride = { new Ride(10, 10), new Ride(10, 5), new Ride(10, 10) };
-            double totalFate = 325, numberOfRides = ride.Length, averageFare = totalFate / numberOfRides;
-            EnhancedInvoice result = getMethod.MultipleRides(ride);
-            Assert.AreEqual(totalFate, result.totalFare);
+            double totalFare = 325, numberOfRides = ride.Length, averageFare = totalFare / numberOfRides;
+            var result = getMethod.MultipleRides(ride);
+            Assert.AreEqual(totalFare, result.totalFare);
+            Assert.AreEqual(averageFare, result.averageFare);
+            Assert.AreEqual(numberOfRides, result.numberOfRides);
+        }
+        [Test]
+        public void GivenUserID_ShouldReturnExpectedTotalFare_numberOfRides_AverageFare()
+        {
+            RideRepository rideRepository = new RideRepository();
+            Ride[] ride = { new Ride(10, 10), new Ride(10, 5), new Ride(10, 10) };
+            double totalFare = 325, numberOfRides = ride.Length, averageFare = totalFare / numberOfRides;
+            rideRepository.AddRides("Ela", ride);
+            var result =  rideRepository.UserInvoice("Ela");
+            Assert.AreEqual(totalFare, result.totalFare);
             Assert.AreEqual(averageFare, result.averageFare);
             Assert.AreEqual(numberOfRides, result.numberOfRides);
         }

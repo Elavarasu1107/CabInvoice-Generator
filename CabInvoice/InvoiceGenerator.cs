@@ -8,6 +8,7 @@ namespace CabInvoice
 {
     public class InvoiceGenerator
     {
+        RideRepository data;
         private readonly double MINIMUM_COST_PER_KM = 10;
         private readonly int COST_PER_TIME = 1;
         private readonly double MINIMUM_FARE = 5;
@@ -47,5 +48,6 @@ namespace CabInvoice
             }
             return new EnhancedInvoice(rides.Length, totalFare);
         }
+        
     }
 }
