@@ -31,7 +31,7 @@ namespace CabInvoice
             }
             return Math.Max(totalFare,MINIMUM_FARE); 
         }
-        public double MultipleRides(Ride[] rides)
+        public EnhancedInvoice MultipleRides(Ride[] rides)
         {
             double totalFare = 0;
             try
@@ -45,8 +45,7 @@ namespace CabInvoice
             {
                 throw new CustomException(CustomException.ExceptionType.NULL_RIDES, "Rides Are Null");
             }
-            Console.WriteLine("Total Fare: " + totalFare);
-            return totalFare;
+            return new EnhancedInvoice(rides.Length, totalFare);
         }
     }
 }

@@ -15,10 +15,22 @@ namespace CabInvoice_Testing
         [Test]
         public void GivenMultipleRideData_ShouldReturnExpectedTotalFare()
         {
-            int expected = 215;
+            double expected = 325;
             InvoiceGenerator getMethod = new InvoiceGenerator();
-            Ride[] ride = { new Ride(10, 10), new Ride(10, 5) };
-            Assert.AreEqual(expected, getMethod.MultipleRides(ride));
+            Ride[] ride = { new Ride(10, 10), new Ride(10, 5), new Ride(10, 10) };
+            EnhancedInvoice result = getMethod.MultipleRides(ride);
+            Assert.AreEqual(expected, result.totalFare);
+        }
+        [Test]
+        public void GivenMultipleRideData_ShouldReturnExpectedTotalFare_numberOfRides_AverageFare()
+        {
+            InvoiceGenerator getMethod = new InvoiceGenerator();
+            Ride[] ride = { new Ride(10, 10), new Ride(10, 5), new Ride(10, 10) };
+            double totalFate = 325, numberOfRides = ride.Length, averageFare = totalFate / numberOfRides;
+            EnhancedInvoice result = getMethod.MultipleRides(ride);
+            Assert.AreEqual(totalFate, result.totalFare);
+            Assert.AreEqual(averageFare, result.averageFare);
+            Assert.AreEqual(numberOfRides, result.numberOfRides);
         }
     }
 }
